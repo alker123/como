@@ -1,0 +1,532 @@
+/* Reset básico e fonte moderna */
+body {
+  font-family: 'Inter', sans-serif;
+  background: url('img/ChatGPT Image 27 de jun. de 2025, 06_18_59.png') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  margin: 0;
+  padding: 40px;
+  color: #f5790c;
+  display: block;
+  }
+
+
+
+#tabela-principal-container,
+#tabela-secundaria-container,
+#oitavas-container,
+#quartas-container,
+#semi-final-container,
+#final-container 
+
+/* Idiomas */
+.idiomas {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+.idiomas img {
+  width: 32px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+/* Título */
+.title {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 2em;
+  font-weight: 600;
+  color: aqua;
+}
+h1 {
+  font-size: 28px;
+  color: #fff;
+  margin: 0 0 20px 0;
+}
+
+/* Painel */
+.painel-unico {
+  width: 300px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  margin-top: 0;
+  margin-left: 0;
+}
+
+/* Campos gerais */
+.campo {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.campo h2 {
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+/* Campo de ritmo */
+select#ritmo-operador {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #1c1c3a;
+  color: #ffffff;
+  border: 1px solid #3f51b5;
+  font-weight: 600;
+  box-shadow: 0 0 5px rgba(63, 81, 181, 0.5);
+  transition: all 0.3s ease;
+}
+select#ritmo-operador:focus {
+  border-color: #00c3ff;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 195, 255, 0.7);
+}
+
+/* Atletas e Categorias */
+select#atleta-operador,
+select#categoria-operador {
+  padding: 8px 12px; /* Espaçamento interno */
+  width: 300px; /* Largura do select */
+  height: 120px; /* Altura do select */
+  border-radius: 8px; /* Bordas arredondadas */
+  background: #1c1c3a; /* Cor de fundo */
+  color: #ffffff; /* Cor do texto */
+  border: 1px solid #3f51b5; /* Borda com cor */
+  font-weight: 600; /* Peso da fonte */
+  box-shadow: 0 0 5px rgba(63, 81, 181, 0.5); /* Sombra suave */
+  transition: all 0.3s ease; /* Transição suave */
+  
+  /* Barra de rolagem */
+  overflow-y: auto; /* A barra de rolagem aparecerá quando necessário */
+}
+
+/* Para navegadores Webkit (Chrome, Safari) */
+select#atleta-operador::-webkit-scrollbar,
+select#categoria-operador::-webkit-scrollbar {
+  width: 12px; /* Largura da barra de rolagem */
+}
+
+select#atleta-operador::-webkit-scrollbar-thumb,
+select#categoria-operador::-webkit-scrollbar-thumb {
+  background-color: #e2bd07; /* Cor do "polegar" (parte que se move) */
+  border-radius: 10px; /* Arredondamento nas bordas do "polegar" */
+}
+
+select#atleta-operador::-webkit-scrollbar-thumb:hover,
+select#categoria-operador::-webkit-scrollbar-thumb:hover {
+  background-color: #e2bd07; /* Cor do "polegar" ao passar o mouse */
+}
+
+select#atleta-operador::-webkit-scrollbar-track,
+select#categoria-operador::-webkit-scrollbar-track {
+  background-color: transparent; /* Cor de fundo da trilha da barra de rolagem */
+  border-radius: 10px; /* Borda arredondada para a trilha */
+}
+
+/* Para Firefox */
+select#atleta-operador,
+select#categoria-operador {
+  scrollbar-width: thin; /* Largura da barra de rolagem */
+  scrollbar-color: #3905e7 transparent; /* Cor do "polegar" e do fundo da barra */
+  
+}
+select#atleta-operador:focus,
+select#categoria-operador:focus {
+  border-color: #00c3ff;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 195, 255, 0.7);
+}
+
+/* Botão Enviar */
+button#enviar-dados {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  width: 180px;
+  align-self: center;
+  transition: background 0.3s ease;
+}
+button#enviar-dados:hover {
+  background: #2575fc;
+}
+.campo:last-child {
+  display: flex;
+  justify-content: center;
+}
+
+/* Painel de planilha */
+.planilha-container {
+  position: absolute;
+  top: 85px;
+  left: 450px;
+  width: 950px;
+  height: auto;
+  background: transparent;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  color: #f1b32d;
+}
+
+
+/* Ajustando a tabela para se adaptar ao .planilha-container */
+#tabela-avaliacao {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+  table-layout: fixed; /* força colunas a respeitar os widths */
+  font-size: 12px; /* Tamanho da fonte reduzido */
+  font-weight: bold; /* Ajusta o peso da fonte */
+ 
+}
+.scroll-tabela {
+  /*overflow-y: auto; /* Aparece apenas quando o conteúdo excede a altura */
+  max-height: 400px; /* Aproximadamente 10 linhas com 40px de altura cada */
+  overflow-y: scroll; /* A barra de rolagem aparecerá sempre */
+  border: 1px solid #ccc; /* Exemplo de borda para destacar a tabela */
+  border-radius: 8px;
+}
+
+/* Para navegadores Webkit (Chrome, Safari) */
+.scroll-tabela::-webkit-scrollbar {
+  width: 40px; /* Largura da barra de rolagem */
+}
+
+.scroll-tabela::-webkit-scrollbar-thumb {
+  background-color: #888; /* Cor do "polegar" (parte que se move) */
+  border-radius: 10px; /* Arredondamento nas bordas do "polegar" */
+}
+
+.scroll-tabela::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Cor do "polegar" ao passar o mouse */
+}
+
+.scroll-tabela::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Cor de fundo da trilha da barra de rolagem */
+  border-radius: 10px; /* Borda arredondada para a trilha */
+}
+
+/* Para Firefox */
+.scroll-tabela {
+  scrollbar-width: thin; /* Largura da barra de rolagem */
+  scrollbar-color: #3905e7 #ccc; /* Cor do "polegar" e do fundo da barra */
+}
+
+.scroll-tabela1 {
+  /*overflow-y: auto; /* Aparece apenas quando o conteúdo excede a altura */
+  max-height: 400px; /* Aproximadamente 10 linhas com 40px de altura cada */
+  overflow-y: scroll; /* A barra de rolagem aparecerá sempre */
+  border: 1px solid #ccc; /* Exemplo de borda para destacar a tabela */
+  border-radius: 8px;
+}
+
+/* Para navegadores Webkit (Chrome, Safari) */
+.scroll-tabela1::-webkit-scrollbar {
+  width: 25px; /* Largura da barra de rolagem */
+}
+
+.scroll-tabela1::-webkit-scrollbar-thumb {
+  background-color: #888; /* Cor do "polegar" (parte que se move) */
+  border-radius: 10px; /* Arredondamento nas bordas do "polegar" */
+}
+
+.scroll-tabela1::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Cor do "polegar" ao passar o mouse */
+}
+
+.scroll-tabela1::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Cor de fundo da trilha da barra de rolagem */
+  border-radius: 10px; /* Borda arredondada para a trilha */
+}
+
+/* Para Firefox */
+.scroll-tabela1 {
+  scrollbar-width: thin; /* Largura da barra de rolagem */
+  scrollbar-color: #3905e7 #ccc; /* Cor do "polegar" e do fundo da barra */
+}
+
+
+/* Cabeçalho */
+thead th {
+  color: rgb(247, 246, 246);
+  padding: 8px 6px; /* Reduzido o padding para diminuir o espaço */
+  text-align: center;
+  border: 1px solid #c7a305;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  font-size: 14px; /* Tamanho da fonte reduzido */
+  font-weight: bold; /* Ajusta o peso da fonte */
+}
+
+/* Cores diferentes por coluna e ajuste nas larguras */
+thead th:nth-child(1) {
+  background-color: #6a11cb; /* Selecionar */
+  width: 30px;
+}
+
+thead th:nth-child(2) {
+  background-color: #6a11cb; /* Atleta */
+  width: 410px;
+}
+
+thead th:nth-child(3) {
+  background-color: #6a11cb; /* Categoria */
+  width: 100px;
+}
+
+thead th:nth-child(4),
+thead th:nth-child(5),
+thead th:nth-child(6),
+thead th:nth-child(7),
+thead th:nth-child(8),
+thead th:nth-child(9),
+thead th:nth-child(10),
+thead th:nth-child(11),
+thead th:nth-child(12) {
+  background-color: #6a11cb; /* Cor uniforme para as colunas */
+  width: 80px;
+}
+
+thead th:nth-child(13) {   /* Media */
+  background: #ffcc00;
+  color: #000;
+  font-weight: bold;
+  width: 100px;
+}
+
+/* Corpo da tabela */
+td {
+  border: 1px solid #6a6a67;
+  padding: 6px;
+  text-align: center;
+  background: #e9e5e5;
+  color: #333;
+  font-size: 14px; /* Tamanho da fonte ajustado para as células */
+  font-weight: bold; 
+  
+}
+
+/* Ajuste para as colunas com maior espaço */
+#tabela-avaliacao td:nth-child(4),
+#tabela-avaliacao td:nth-child(5),
+#tabela-avaliacao td:nth-child(6),
+#tabela-avaliacao td:nth-child(8),
+#tabela-avaliacao td:nth-child(9) {
+  width: 90px;
+}
+
+#tabela-avaliacao th, #tabela-avaliacao td {
+  padding: 8px 10px;  /* Ajuste de padding para mais espaçamento nas células */
+}
+
+
+/* Estilo de Zebra e Hover */
+#tabela-avaliacao tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#tabela-avaliacao tbody tr:nth-child(odd) {
+  background-color: #eaeaea;
+}
+
+#tabela-avaliacao tbody tr:hover {
+  background-color: #d5eaff;
+}
+
+/* Estilo dos inputs */
+input[type="number"], input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-size: 14px;
+}
+
+.media {
+  background-color: #eaeaea;
+}
+
+/* Botões extras */
+
+.botoes-acoes {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  width: 100%; /* ocupa toda a largura da planilha */
+}
+
+.botoes-acoes button {
+  flex: 1;
+  padding: 10px;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.botoes-acoes button:hover {
+  background: #203a6e;
+}
+
+.botoes-acoes1 {
+  display: flex;
+  justify-content: center; /* Centraliza os botões horizontalmente */
+  gap: 10px; /* Adiciona um pequeno espaço entre os botões */
+  margin-top: 10px;
+  width: 100%; /* Ocupa toda a largura da planilha */
+  flex-wrap: wrap; /* Permite que os botões quebrem para a linha seguinte se necessário */
+}
+
+.botoes-acoes1 button {
+  padding: 10px 20px; /* Aumenta o espaçamento interno para dar mais espaço aos botões */
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease; /* Suaviza a transição ao passar o mouse */
+}
+
+.botoes-acoes1 button:hover {
+  background: #203a6e; /* Muda a cor ao passar o mouse */
+}
+
+/* Quando houver mais de um botão na linha, pode ser ajustado o layout com flex-wrap */
+.botoes-acoes1 button:active {
+  transform: scale(0.98); /* Efeito de pressionar o botão */
+}
+
+button {
+  margin: 10px 4px;
+  padding: 8px 14px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+select#seletor-categoria.select-estilizado2,
+select#seletor-categoria-secundaria.select-estilizado1,
+select#seletor-categoria-oitavas.select-estilizado1,
+select#seletor-ritmo.select-estilizado {
+  padding: 8px 12px;
+  width: 100px;
+  height: 40px;
+  border-radius: 8px;
+  background: #1c1c3a;
+  color: #ffffff;
+  border: 1px solid #3f51b5;
+  font-weight: 600;
+  box-shadow: 0 0 5px rgba(63, 81, 181, 0.5);
+  transition: all 0.3s ease;
+}
+select#seletor-ritmo.select-estilizado :focus,
+select#seletor-categoria-secundaria.select-estilizado1 :focus,
+select#seletor-categoria-oitavas.select-estilizado1 :focus,
+select#seletor-categoria.select-estilizado2 :focus {
+  border-color: #00c3ff;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 195, 255, 0.7);
+}
+
+/* Tabela Segundaria */
+/* Estilos para as tabelas */
+#tabela-secundaria, #tabela-oitavas {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+#tabela-secundaria th, #tabela-oitavas th {
+  background-color: #8706dd;
+  color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+#tabela-secundaria td, #tabela-oitavas td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #6a6a67;
+  word-wrap: break-word;
+}
+
+/* Largura personalizada para cada coluna */
+#tabela-secundaria thead th:nth-child(1), #tabela-oitavas thead th:nth-child(1) { /* Atleta */
+  width: 180px;
+}
+
+#tabela-secundaria thead th:nth-child(2), #tabela-oitavas thead th:nth-child(2) { /* Categoria */
+  width: 100px;
+}
+
+#tabela-secundaria thead th:nth-child(3), #tabela-oitavas thead th:nth-child(3),  /* Regional */
+#tabela-secundaria thead th:nth-child(4), #tabela-oitavas thead th:nth-child(4),  /* Angola */
+#tabela-secundaria thead th:nth-child(5), #tabela-oitavas thead th:nth-child(5),  /* Iuna */
+#tabela-secundaria thead th:nth-child(6), #tabela-oitavas thead th:nth-child(6) { /* Nota Final */
+  width: 90px;
+}
+  
+
+  /* Estilo simples para os botões */
+    .fase-button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .fase-button:hover {
+      background-color: #218838;
+    }
+
+    /* Estilo para a tabela */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }

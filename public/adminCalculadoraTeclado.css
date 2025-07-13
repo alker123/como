@@ -1,0 +1,295 @@
+/* Teclado Virtual */
+#campo-texto {
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  top: 10px;
+  left: 600px;
+  border-radius: 12px;
+  border: 1px solid #5c6bc0;
+  background: linear-gradient(135deg, #1c1c3a, #2e2e4d);
+  color: white;
+  box-shadow: 0 0 12px rgba(92, 107, 192, 0.6);
+  transition: all 0.3s ease;
+}
+
+#campo-texto:focus {
+  border-color: #00c3ff;
+  outline: none;
+  box-shadow: 0 0 14px rgba(0, 195, 255, 0.9);
+}
+
+#teclado {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  background: linear-gradient(135deg, #1c1c1c, #2e2e2e);
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  max-width: 100%;
+  width: 100%;
+  top: 100px;
+  left: 600px;
+}
+
+.linha-teclado {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.tecla {
+  padding: 12px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, #5c6bc0, #3f51b5);
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.1s ease;
+  flex-shrink: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.tecla:hover {
+  background: linear-gradient(to bottom, #7986cb, #5c6bc0);
+  transform: translateY(-1px);
+}
+
+.tecla:active {
+  transform: scale(0.95);
+}
+
+.tecla.space {
+  flex: 3;
+  max-width: 100%;
+  min-width: 200px;
+}
+
+.tecla.wide {
+  min-width: 80px;
+}
+
+.tecla.ativa {
+  background: linear-gradient(to bottom, #ffc107, #ff9800) !important;
+  color: black !important;
+}
+
+#btn-teclado {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+
+/* Menu */
+.menu-win {
+  position: absolute;
+  bottom: 80px;
+  left: 20px;
+  background: #2e2e2e;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+  color: white;
+  font-family: sans-serif;
+  z-index: 1000;
+}
+
+.menu-win ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-win li {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.menu-win li:hover {
+  background: #4a4a4a;
+}
+  
+  
+  /* Calculadora */
+
+.calculadora {
+        width: 220px;
+        background-color: #f7f8fa;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .calculadora input {
+        width: 100%;
+        height: 40px;
+        font-size: 20px;
+        text-align: right;
+        margin-bottom: 10px;
+    }
+
+    .calculadora .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    .calculadora button {
+        padding: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        background-color: #221403;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .calculadora button:hover {
+        background-color: #c6b411;
+    }
+
+     #close-calculator {
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    #close-calculator:hover {
+        background-color: darkred;
+    } 
+    
+
+
+  /* Foto Atleta */
+#painel-foto {
+  display: flex;
+  align-items: center;
+  gap: 30px;  /* aumenta o espaço entre imagem e os textos */
+  margin-top: -175px; /* 🟢 Mais colado no painel acima */
+  margin-bottom: 20px;
+  margin-left: 505px;  /* lateral menos para esquerda e mais para direita*/
+  margin-right: auto;
+  padding: 20px 80px;   /* aumenta o espaço interno */ /* 👈 aumenta o tamanho do painel */
+  border-radius: 12px;
+  background: transparent;
+  /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);*/
+  width: fit-content;  /* faz ocupar mais espaço horizontal se quiser */
+  max-width: 500px;  /* controle do tamanho máximo */
+}
+
+.foto-container {
+  display: flex;
+  flex-direction: column;
+  /*align-items: center;*/
+  margin-left: -30px;  /* lateral menos para esquerda e mais para direita*/
+}
+
+#fotoPerfil {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff30;
+  margin-bottom: 8px;
+  margin-top: -10px; /* 🟢 Mais colado no painel acima */
+}
+
+#botaoFoto {
+  background: transparent;
+  border: none;
+  color: #ecb419;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 4px 0;
+}
+
+#botaoFoto:hover {
+  color: #ecbd58;
+}
+
+.info-atleta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#campoNome {
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 4px 0;
+  border: none;
+  outline: none;
+  align-items: center;
+  margin-top: -25px; /* 🟢 Mais colado no painel acima */
+  margin-left: 10px;  /* lateral menos para esquerda e mais para direita*/
+  gap: 40px;  /* aumenta o espaço entre imagem e os textos */
+}
+
+#campoCategoria {
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 4px 0;
+  border: none;
+  outline: none;
+  align-items: center;
+  margin-top: 20px; /* 🟢 Mais colado no painel acima */
+  margin-left: 10px;  /* lateral menos para esquerda e mais para direita*/
+  gap: 40px;  /* aumenta o espaço entre imagem e os textos */
+}
+ 
+/* adicionar atleta com foto*/
+
+
+
+/* Container opcional para centralizar vertical e horizontalmente */
+/*.container {
+  display: flex;
+  justify-content: center; /* Centraliza na horizontal */
+/*  align-items: center;     /* Centraliza na vertical */
+/*  height: 100vh;           /* Ocupa a altura total da tela */
+/*}
+
+/* Estilização completa do select */
+/*#lista-categorias-2 {
+  width: 200px;
+  height: 80px;
+  padding: 6px;
+  font-size: 14px;
+
+  /* Centraliza horizontalmente *//*
+  display: block;
+  margin: 0 auto;
+
+  /* Para mover manualmente (descomente o necessário): */
+
+  /* Mover para baixo */
+  /* margin-top: 20px; */
+
+  /* Mover para cima */
+  /* margin-top: -20px; */
+
+  /* Mover para a direita */
+  /* margin-left: auto; margin-right: 0; */
+
+  /* Mover para a esquerda */
+  /* margin-left: 0; */
+/*}
+

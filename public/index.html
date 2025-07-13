@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="title">Login</title>
+  <link rel="stylesheet" href="login.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="firebase1.js"></script> <!-- só se você usar Firebase em outras partes -->
+  <script src="translate.js"></script>
+</head>
+<body>
+  <img id="img-movel" src="img/voando alto-psd.png" alt="Imagem Arrastável">
+
+  <!-- Botões de idioma -->
+  <div class="lang-buttons">
+    <button onclick="setLanguage('pt')"><img src="img/br.png" alt="Português" /></button>
+    <button onclick="setLanguage('en')"><img src="img/us.png" alt="English" /></button>
+  </div>
+
+  <div class="login-container">
+    <h2 id="loginTitle">Login</h2>
+    <input type="text" id="usuario" placeholder="Usuário" data-translate-placeholder="username" />
+    <input type="password" id="senha" placeholder="Senha" data-translate-placeholder="password" />
+    <button id="btnLogin">Entrar</button>
+    <p id="mensagem" class="mensagem-erro"></p>
+  </div>
+
+  <script>
+    document.getElementById("btnLogin").addEventListener("click", function () {
+      const usuario = document.getElementById("usuario").value.trim();
+      const senha = document.getElementById("senha").value.trim();
+      const msg = document.getElementById("mensagem");
+
+      const usuarioValido = usuario.includes('@');
+      if (!usuario || !senha) {
+        msg.textContent = translations[currentLang]['fillFields'];
+        return;
+      }
+
+      if (!usuarioValido) {
+        msg.textContent = translations[currentLang]['invalidUsername'];
+        return;
+      }
+
+      fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario, senha })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          window.location.href = data.rota;
+        } else {
+          msg.textContent = data.message || translations[currentLang]['wrongPassword'];
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        msg.textContent = translations[currentLang]['dbError'];
+      });
+    });
+
+    // Define linguagem inicial
+    let currentLang = 'pt';
+    setLanguage(currentLang);
+  </script>
+
+  <!-- Script de arrastar imagem -->
+  <script>
+    const img = document.getElementById("img-movel");
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    img.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      offsetX = e.clientX - img.offsetLeft;
+      offsetY = e.clientY - img.offsetTop;
+      img.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (isDragging) {
+        img.style.left = e.clientX - offsetX + "px";
+        img.style.top = e.clientY - offsetY + "px";
+      }
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+      img.style.cursor = "grab";
+    });
+
+    img.addEventListener("touchstart", (e) => {
+      isDragging = true;
+      const touch = e.touches[0];
+      offsetX = touch.clientX - img.offsetLeft;
+      offsetY = touch.clientY - img.offsetTop;
+    });
+
+    document.addEventListener("touchmove", (e) => {
+      if (isDragging) {
+        const touch = e.touches[0];
+        img.style.left = touch.clientX - offsetX + "px";
+        img.style.top = touch.clientY - offsetY + "px";
+      }
+    });
+
+    document.addEventListener("touchend", () => {
+      isDragging = false;
+    });
+  </script>
+</body>
+</html>

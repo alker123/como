@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Operador</title>
+  <link rel="stylesheet" href="operador.css">
+  <style>
+    #tabela-secundaria-container .scroll-tabela {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+  </style>
+
+</head>
+</head>
+<body>
+  <div class="idiomas">
+    <img src="img/br.png" alt="Português" id="pt">
+    <img src="img/us.png" alt="English" id="en">
+  </div>
+
+  <h1 data-i18n="title">Painel do Operador</h1>
+
+  <!--<div class="imagem-container">
+    <img src="img/br.png" alt="Logo da competição">
+  </div>-->
+
+  <!-- Container principal -->
+  <div class="painel-unico">
+
+   
+    <div class="campo">
+      <h2 data-i18n="selectRitmo">Selecionar Ritmo</h2>
+      <select id="ritmo-operador">
+        <option value="regional">São Bento Grande da Regional</option>
+        <option value="angola">São Bento Grande da Angola</option>
+        <option value="iuna">Iuna</option>
+      </select>
+    </div>
+
+    <!-- Selecionar Atletas -->
+    <div class="campo">
+      <h2 data-i18n="selectAtletas">Selecionar Atletas</h2>
+      <select id="atleta-operador" multiple></select>
+    </div>
+
+    <!-- Selecionar Categorias -->
+    <div class="campo">
+      <h2 data-i18n="selectCategorias">Selecionar Categorias</h2>
+      <select id="categoria-operador" multiple></select>
+    </div>
+
+    <!-- Seletor de Fases -->
+  <label for="seletor-fase">Escolha a Fase:</label>
+  <select id="seletor-fase">
+    <!-- As opções serão carregadas automaticamente do Firebase -->
+  </select>
+
+    <!-- Enviar para Jurado -->
+    <div class="campo">
+      <button id="enviar-dados" data-i18n="btnEnviar">Enviar para Jurado</button>
+    </div>
+
+
+  <!-- TABELA PRINCIPAL -->
+  <div id="tabela-principal-container" class="planilha-container">
+    <h2>
+      Tabela Principal - Ritmo: <span id="ritmo-atual">Selecionar</span>
+  <select id="seletor-ritmo" class="select-estilizado">
+  <option value="">Selecionar</option>
+  <option value="angola">Angola</option>
+  <option value="iuna">Iúna</option>
+  <option value="regional">Regional</option>
+  </select>
+
+
+    </h2>
+
+    <div class="botoes-acoes" style="margin-bottom:10px;">
+      <div>
+       <label for="seletor-categoria" class="label-categoria">Categoria:</label>
+       <select id="seletor-categoria" class="select-estilizado2">
+       <option value="">Todas</option>
+       </select>
+
+
+      <button onclick="baixarExcel()">Download Excel</button>
+
+      </div>
+    </div>
+
+    <div class="scroll-tabela">
+      <table id="tabela-principal" border="1" cellspacing="0" cellpadding="5">
+        <thead>
+          <tr>
+            <th>Sel.</th>
+            <th>Atleta</th>
+            <th>Categoria</th>
+            <th>NotaA</th>
+            <th>Vantagem</th>
+            <th>NotaFinalA</th>
+            <th>NotaB</th>
+            <th>Punição</th>
+            <th>NotaFinalB</th>
+            <th>NotaC</th>
+            <th>Vantagem</th>
+            <th>NotaFinalC</th>
+            <th>Média</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="botoes-acoes1" style="margin-top:10px;">
+      <button onclick="verMediaPorRitmo()">Media total</button>
+      <button onclick="oitavas()">Oitavas</button>
+      <button onclick="quartas()">Quartas</button>
+      <button onclick="semi_final()">Semi-finais</button>
+      <button onclick="final()">Final</button>
+      <button onclick="excluirLinhasSelecionadas()">Excluir Linhas Selecionadas</button>
+      
+
+    </div>
+  </div>
+
+   
+
+  <!-- TABELA SECUNDÁRIA -->
+  <div id="tabela-secundaria-container" class="planilha-container" style="display:none;">
+    <h2>Tabela Secundária</h2>
+
+    <div class="botoes-acoes" style="margin-bottom:10px;">
+      <div>
+          <label for="seletor-categoria-secundaria" class="label-categoria">Categoria:</label>
+       <select id="seletor-categoria-secundaria" class="select-estilizado1">
+       <option value="">Todas</option>
+       </select>
+
+       <button onclick="baixarExcel()">Download Excel</button>
+       <button onclick="gerarDocx()">Download Word</button>
+       <button onclick="gerarPDF()">Download PDF</button>
+
+    </div>
+    </div>
+
+    <div class="scroll-tabela1">
+      <table id="tabela-secundaria" border="1" cellspacing="0" cellpadding="5">
+        <thead>
+          <tr>
+            <th>Atleta</th>
+            <th>Categoria</th>
+            <th>Regional</th>
+            <th>Angola</th>
+            <th>Iuna</th>
+            <th>Nota Final</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- ✅ Forma correta ao usar ES Modules -->
+<div class="botoes-acoes" style="margin-top:10px;">
+  <button onclick="voltarParaTabela()">Voltar</button>
+  <button id="enviar-oitavas">Enviar para Oitavas</button>
+
+</div>
+</div>
+
+      <!-- Oitavas de Final -->
+    <div id="tabela-oitavas-container" class="planilha-container" style="display:none;">
+    <h2>Oitavas de Final</h2>
+
+    <div class="botoes-acoes" style="margin-bottom:10px;">
+        <div>
+            <label for="seletor-categoria-oitavas" class="label-categoria">Categoria:</label>
+            <select id="seletor-categoria-oitavas" class="select-estilizado1">
+                <option value="">Todas</option>
+                <!-- As categorias podem ser preenchidas dinamicamente aqui, se necessário -->
+            </select>
+
+            <button onclick="baixarExcel()">Download Excel</button>
+            <button onclick="gerarDocx()">Download Word</button>
+            <button onclick="gerarPDF()">Download PDF</button>
+        </div>
+    </div>
+
+    <div class="scroll-tabela1">
+        <table id="tabela-oitavas" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Atleta</th>
+                    <th>Categoria</th>
+                    <th>Regional</th>
+                    <th>Angola</th>
+                    <th>Iuna</th>
+                    <th>Nota Final</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="botoes-acoes" style="margin-top:10px;">
+        <button onclick="voltarParaTabela1()">Voltar</button>
+        <button class="fase-button" id="enviar-quartas">Enviar para Quartas</button>
+    </div>
+    </div>
+
+    <!-- Quartas de Final -->
+    <div id="quartas-container" class="planilha-container" style="display:none;">
+    <h2>Quartas de Final</h2>
+
+    <div class="botoes-acoes" style="margin-bottom:10px;">
+        <div>
+            <label for="seletor-categoria-quartas" class="label-categoria">Categoria:</label>
+            <select id="seletor-categoria-quartas" class="select-estilizado1">
+                <option value="">Todas</option>
+                <!-- As categorias podem ser preenchidas dinamicamente aqui, se necessário -->
+            </select>
+
+            <button onclick="baixarExcel()">Download Excel</button>
+            <button onclick="gerarDocx()">Download Word</button>
+            <button onclick="gerarPDF()">Download PDF</button>
+        </div>
+    </div>
+
+    <div class="scroll-tabela1">
+        <table id="tabela-quartas" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Atleta</th>
+                    <th>Categoria</th>
+                    <th>Regional</th>
+                    <th>Angola</th>
+                    <th>Iuna</th>
+                    <th>Nota Final</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="botoes-acoes" style="margin-top:10px;">
+        <button onclick="voltarParaTabela2()">Voltar</button>
+        <button class="fase-button" id="enviar-semifinal">Enviar para Semi-final</button>
+    </div>
+</div>
+      
+       <!-- Semi-Final -->
+      <div id="semi-final-container" class="planilha-container" style="display:none;">
+    <h2>Semi-Final</h2>
+
+    <div class="botoes-acoes" style="margin-bottom:10px;">
+        <div>
+            <label for="seletor-categoria-semi-final" class="label-categoria">Categoria:</label>
+            <select id="seletor-categoria-semi-final" class="select-estilizado1">
+                <option value="">Todas</option>
+                <!-- As categorias podem ser preenchidas dinamicamente aqui, se necessário -->
+            </select>
+
+            <button onclick="baixarExcel()">Download Excel</button>
+            <button onclick="gerarDocx()">Download Word</button>
+            <button onclick="gerarPDF()">Download PDF</button>
+        </div>
+    </div>
+
+    <div class="scroll-tabela1">
+        <table id="tabela-semi-final" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Atleta</th>
+                    <th>Categoria</th>
+                    <th>Regional</th>
+                    <th>Angola</th>
+                    <th>Iuna</th>
+                    <th>Nota Final</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="botoes-acoes" style="margin-top:10px;">
+        <button onclick="voltarParaTabela3()">Voltar</button>
+        <button class="fase-button" id="enviar-final">Enviar para Final</button>
+    </div>
+</div>
+
+      <!-- Final -->
+      <div id="final-container" class="planilha-container" style="display:none;">
+    <h2>Final</h2>
+
+    <div class="botoes-acoes" style="margin-bottom:10px;">
+        <div>
+            <label for="seletor-categoria-final" class="label-categoria">Categoria:</label>
+            <select id="seletor-categoria-final" class="select-estilizado1">
+                <option value="">Todas</option>
+                <!-- As categorias podem ser preenchidas dinamicamente aqui, se necessário -->
+            </select>
+
+            <button onclick="baixarExcel()">Download Excel</button>
+            <button onclick="gerarDocx()">Download Word</button>
+            <button onclick="gerarPDF()">Download PDF</button>
+        </div>
+    </div>
+
+    <div class="scroll-tabela1">
+        <table id="tabela-final" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Atleta</th>
+                    <th>Categoria</th>
+                    <th>Regional</th>
+                    <th>Angola</th>
+                    <th>Iuna</th>
+                    <th>Nota Final</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="botoes-acoes" style="margin-top:10px;">
+        <button onclick="voltarParaTabela4()">Voltar</button>
+    </div>
+</div>
+ </div>
+ 
+  
+
+    <!-- Firebase e outros scripts -->
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="operador.js"></script>
+  <script type="module" src="operadorplanilha.js"></script>
+  <script src="operadorplanilha1.js"></script>
+  <script type="module" src="operadorFases.js"></script>
+  <script src="translate-operador.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://unpkg.com/docx@8.1.0/build/index.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+
+
+
+
+</body>
+</html>

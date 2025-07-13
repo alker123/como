@@ -1,0 +1,106 @@
+.container {
+      background: #cac8c6;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(208, 151, 6, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h1 {
+      margin-bottom: 30px;
+      text-align: center;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+      color: #e37a0b;
+    }
+    .input-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .input-container input,
+    .input-container button {
+      width: 48%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .input-container button {
+      cursor: pointer;
+      background-color: #ff9900;
+      color: rgb(15, 15, 15);
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .input-container button:hover {
+      background-color: #e6c035;
+    }
+
+    .input-text {
+      background-color: transparent;
+      border: none;
+      width: 48%;
+      font-size: 16px;
+      padding: 10px;
+      text-align: center;
+      color: #121211;
+    }
+
+    input[readonly] {
+      background-color: transparent;
+    }
+
+    #atleta {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #e6c035;
+      background-color: transparent;
+      margin-top: 6px;
+    }
+
+    #enviar {
+      width: auto;
+      padding: 10px 20px;
+      background-color: #273bae;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 20px auto 0;
+      display: block;
+      transition: background 0.3s;
+    }
+
+    #enviar:hover {
+      background-color: #e6c035;
+    }
+
+    .label-centralizada {
+      text-align: center;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      select, input, button {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }

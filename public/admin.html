@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Painel do Administrador</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="adminCalculadoraTeclado.css" />
+  <link rel="stylesheet" href="adminMobile.css" media="only screen and (max-width: 600px)" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+</head>
+<body>
+  <h1>Painel do Administrador</h1>
+
+  
+ <!-- Cadastrar Usuário -->
+  <h2>Cadastrar Usuário</h2>
+  <label for="novo-user-nome">Usuário</label>
+  <input type="text" id="novo-user-nome" placeholder="Digite o nome do usuário" />
+
+  <label for="novo-user-senha">Senha</label>
+  <input type="password" id="novo-user-senha" placeholder="Digite a senha" />
+
+  <div class="show-password-container">
+    <input type="checkbox" id="mostrar-senha" />
+    <label for="mostrar-senha" class="mostrar-senha-label">Mostrar senha</label>
+  </div>
+
+  <button id="cadastrar-usuario-btn">Cadastrar Usuário</button>
+  
+
+  <!-- Adicionar Atleta -->
+  <div class="card" id="bloco-atleta">
+  <h2>Adicionar Atleta</h2>
+  <label for="nome-atleta">Nome do Atleta</label>
+  <input type="text" id="nome-atleta" placeholder="Digite o nome">
+
+  <hr class="divisor-sessao">
+  
+  <h2>Adicionar Categoria</h2>
+  <label for="nome-categoria">Nome da Categoria</label>
+  <input type="text" id="nome-categoria" placeholder="Digite a categoria" />
+
+  <div class="foto-container">
+      <img id="fotoPerfil" src="img/foto.png" alt="Foto do Atleta">
+      <button id="botaoFoto">Adicionar Foto</button>
+      <input type="file" id="inputFoto" accept="image/*">
+  </div>
+  
+  <button id="add-categoria-btn">Enviar</button>
+  </div>
+    
+  <!-- Teclado Virtual -->
+  <!--<div style="display: flex; align-items: center; gap: 10px;">
+  <button id="btn-teclado" title="Teclado virtual">
+    <img id="icone-img" src="img/5339101.png" alt="Teclado Virtual" style="width: 30px; height: 30px;">
+  </button></div>
+
+  <div id="menu-win" class="menu-win" style="display:none;">
+   <ul>
+    <li id="pesquisar">🔎 Pesquisar</li>
+    <li id="calculadora">🧮 Calculadora</li>
+    <li id="arquivos">📁 Meus Arquivos</li>
+    <li id="configuracoes">⚙️ Configurações</li>
+    <li id="desligar">📴 Desligar</li>
+   </ul>
+  </div>-->
+  
+  <!-- Ver e excluir atletas -->
+  <div class="card" id="card-atletas">
+    <h2>Atletas Cadastrados</h2>
+    <select id="lista-categorias-2">
+      <option value="" disabled selected>Selecionar categoria</option>
+    </select>
+    <select id="lista-atletas" multiple></select>
+    <button id="excluir-atleta-btn">Excluir Atleta(s)</button>
+  </div>
+
+  <!-- Ver e excluir categorias -->
+  <div class="card" id="cat">
+    <h2>Categorias Cadastradas</h2>
+    <select id="lista-categorias" multiple>
+      <option value="" disabled>Selecionar categoria</option>
+    </select>
+    <button id="excluir-categoria-btn">Excluir Categoria(s)</button>
+  </div>
+
+  <!-- Enviar para Operador -->
+ <div class="card" id="oper">
+  <h2>Enviar para Operador</h2>
+
+  <!-- Seleção de Atletas -->
+  <label for="atleta-operador">Atletas (selecione um ou mais)</label>
+  <select id="atleta-operador" multiple></select>
+
+  <!-- Seleção de Categorias -->
+  <label for="categoria-operador">Categorias</label>
+  <select id="categoria-operador">
+    <option value="" disabled selected>Selecionar categoria</option>
+  </select>
+
+  <!-- Campo de Foto do Atleta -->
+  <div id="foto-atleta-container" style="display:none;">
+    <label for="foto-atleta">Foto do Atleta</label>
+    <img id="foto-atleta" src="" alt="Foto do Atleta">
+  </div>
+
+  <!-- Botão para Enviar -->
+  <button id="enviar-operador-btn">Enviar para Operador</button>
+</div>
+
+
+
+     <!--Teclado Virtual -->
+     <div id="botao-container">
+     </div>
+     <div id="teclado" style="display: none;"></div>
+     </div>
+
+     <!-- Calculadora -->
+<div id="calculadora-container" style="display:none;">
+    <div class="calculadora">
+      <button id="close-calculator" onclick="closeCalculator()">❌ Fechar</button> <!-- Botão Fechar -->
+        <input type="text" id="display" disabled />
+        <div class="buttons">
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button onclick="appendNumber('*')">*</button>
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button onclick="appendNumber('-')">-</button>
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button onclick="appendNumber('+')">+</button>
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="calculateResult()">=</button>
+            <button onclick="appendNumber('/')">/</button>
+            
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+  <script type="module" src="admin.js"></script>
+  <script type="module" src="adminSenhaUsuario.js"></script>
+  <script src="adminTeclado.js"></script>
+
+ 
+</body>
+</html>

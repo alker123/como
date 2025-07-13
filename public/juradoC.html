@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Jurado C - Avaliação</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f6fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h1 {
+      margin-bottom: 30px;
+      text-align: center;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+      color: #34495e;
+    }
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    input[readonly] {
+      background-color: #f0f0f0;
+    }
+    button {
+      background-color: #00a8ff;
+      color: white;
+      border: none;
+      font-weight: bold;
+      margin-top: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #0097e6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Jurado C - Avaliação</h1>
+
+    <label for="atleta">Selecionar Atleta</label>
+    <select id="atleta">
+      <option value="">Selecione um atleta</option>
+    </select>
+
+    <label for="categoria">Categoria</label>
+    <input type="text" id="categoria" placeholder="Categoria" readonly />
+
+    <label for="ritmo">Ritmo</label>
+    <input type="text" id="ritmo" placeholder="Ritmo" readonly />
+
+    <label for="nota">Nota</label>
+    <select id="nota">
+      <option value="">Selecione uma nota</option>
+      <option value="9.0">9.0</option>
+      <option value="9.1">9.1</option>
+      <option value="9.2">9.2</option>
+      <option value="9.3">9.3</option>
+      <option value="9.4">9.4</option>
+      <option value="9.5">9.5</option>
+      <option value="9.6">9.6</option>
+      <option value="9.7">9.7</option>
+      <option value="9.8">9.8</option>
+      <option value="9.9">9.9</option>
+      <option value="10.0">10.0</option>
+    </select>
+
+    <button id="enviar">Enviar Nota</button>
+  </div>
+
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getDatabase, ref, onValue, push, set, get } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
+// Inicialização dos aplicativos Firebase para leitura e escrita
+const appLeitura = initializeApp({ databaseURL: "https://testes2-69ead-default-rtdb.firebaseio.com/" }, "leitura");
+const appEscrita = initializeApp({ databaseURL: "https://dados-teste-8b85d-default-rtdb.firebaseio.com/" }, "escrita");
+
+const dbLeitura = getDatabase(appLeitura);
+const dbEscrita = getDatabase(appEscrita);
+
+// Seleção de elementos HTML
+const atletaSelect = document.getElementById("atleta");
+const categoriaInput = document.getElementById("categoria");
+const ritmoInput = document.getElementById("ritmo");
+const notaInput = document.getElementById("nota");
+const vantagemInput = document.getElementById("vantagem");
+const btnEnviar = document.getElementById("enviar");
+
+let dadosAtletas = {};
+let nota = 9.0;
+let vantagem = 0.0;
+const JURADO = 'A';
+
+// Carrega atletas disponíveis
+function carregarAtletas() {
+  onValue(ref(dbLeitura, `avaliacaodejurado${JURADO}`), snapshot => {
+    const data = snapshot.val();
+    atletaSelect.innerHTML = "<option value=''>Selecione um atleta</option>";
+    dadosAtletas = {};
+
+    if (!data) {
+      categoriaInput.value = "";
+      ritmoInput.value = "";
+      return;
+    }
+
+    for (const ritmo in data) {
+      const juradoData = data[ritmo]?.[`jurado${JURADO}`] || {};
+      for (const id in juradoData) {
+        const atleta = juradoData[id];
+        dadosAtletas[atleta.nome] = {
+          categoria: atleta.categoria,
+          ritmo: ritmo,
+          id: atleta.id,
+          foto: atleta.foto || ""
+        };
+
+        const option = document.createElement("option");
+        option.value = atleta.nome;
+        option.textContent = atleta.nome;
+        atletaSelect.appendChild(option);
+      }
+    }
+
+    if (atletaSelect.options.length > 1) {
+      atletaSelect.selectedIndex = 1;
+      const nome = atletaSelect.value;
+      const dados = dadosAtletas[nome];
+      categoriaInput.value = dados.categoria;
+      ritmoInput.value = dados.ritmo;
+    } else {
+      categoriaInput.value = "";
+      ritmoInput.value = "";
+    }
+  }, { onlyOnce: true });
+}
+
+carregarAtletas();
+
+// Atualiza campos ao trocar atleta
+atletaSelect.addEventListener("change", () => {
+  const nome = atletaSelect.value;
+  const dados = dadosAtletas[nome];
+  if (dados) {
+    categoriaInput.value = dados.categoria;
+    ritmoInput.value = dados.ritmo;
+  } else {
+    categoriaInput.value = "";
+    ritmoInput.value = "";
+  }
+});
+
+// Incrementar/Decrementar nota
+document.getElementById("incrementarNota").addEventListener("click", () => {
+  if (nota < 10.0) {
+    nota = (parseFloat(nota) + 0.1).toFixed(1);
+    notaInput.value = nota;
+  }
+});
+
+document.getElementById("decrementarNota").addEventListener("click", () => {
+  if (nota > 9.0) {
+    nota = (parseFloat(nota) - 0.1).toFixed(1);
+    notaInput.value = nota;
+  }
+});
+
+// Incrementar/Decrementar vantagem
+document.getElementById("incrementarVantagem").addEventListener("click", () => {
+  if (vantagem < 0.9) {
+    vantagem = (parseFloat(vantagem) + 0.1).toFixed(1);
+    vantagemInput.value = vantagem;
+  }
+});
+
+document.getElementById("decrementarVantagem").addEventListener("click", () => {
+  if (vantagem > 0.0) {
+    vantagem = (parseFloat(vantagem) - 0.1).toFixed(1);
+    vantagemInput.value = vantagem;
+  }
+});
+
+// Envia nota com vantagem
+btnEnviar.addEventListener("click", async () => {
+  const nome = atletaSelect.value;
+  const categoria = categoriaInput.value;
+  const ritmo = ritmoInput.value;
+  nota = parseFloat(notaInput.value);
+  vantagem = parseFloat(vantagemInput.value);
+  const notaFinal = (nota + vantagem).toFixed(1); // agora soma vantagem
+
+  if (!nome || !categoria || !ritmo || isNaN(nota) || isNaN(vantagem) || nota < 0 || nota > 10 || vantagem < 0 || vantagem > 1) {
+    alert("⚠️ Preencha todos os campos corretamente.");
+    return;
+  }
+
+  const atletaInfo = dadosAtletas[nome];
+  const dadosNota = {
+    atleta: nome,
+    categoria,
+    ritmo,
+    foto: atletaInfo.foto || "",
+    nota,
+    vantagem,
+    jurado: JURADO,
+    notaFinal
+  };
+
+  try {
+    await push(ref(dbEscrita, `avaliacoes${JURADO}/${ritmo}`), dadosNota);
+    await set(ref(dbEscrita, `avaliado${JURADO}/${nome}`), true);
+
+    const path = `avaliacaodejurado${JURADO}/${ritmo}/jurado${JURADO}/${atletaInfo.id}`;
+    await set(ref(dbLeitura, path), null);
+
+    const snapshot = await get(ref(dbLeitura, `avaliacaodejurado${JURADO}/${ritmo}/jurado${JURADO}`));
+
+    if (!snapshot.exists()) {
+      await set(ref(dbLeitura, `avaliacaodejurado${JURADO}/${ritmo}`), null);
+      categoriaInput.value = "";
+      ritmoInput.value = "";
+    }
+
+    alert("✅ Nota enviada com sucesso!");
+    carregarAtletas();
+  } catch (error) {
+    console.error("Erro ao enviar a nota:", error);
+    alert("❌ Erro ao enviar a nota.");
+  }
+});
+
+    
+  </script>
+</body>
+</html>

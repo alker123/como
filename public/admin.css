@@ -1,0 +1,455 @@
+body {
+  background: url('img/ChatGPT\ Image\ 27\ de\ jun.\ de\ 2025\,\ 06_18_59.png') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: white; /* opcional: texto branco por cima da imagem */
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  margin-left: 20px; 
+}
+/* Estiliza os campos de Cadastrar Usuário */
+label[for="novo-user-nome"],
+input#novo-user-nome,
+label[for="novo-user-senha"],
+input#novo-user-senha {
+  display: block;
+  margin-bottom: 10px;
+  margin-left: 20px; 
+  width: 250px;
+  padding: 8px 8px;
+  border-radius: 6px;
+  color: #1157c7;
+ 
+}
+
+
+h2:nth-last-of-type(1) {
+  margin-left: 20px; 
+  color: #d9950d;
+}
+/* Checkbox e botão organizados */
+.show-password-container {
+  margin-bottom: 10px;
+  margin-left: 20px; 
+}
+.mostrar-senha-label {
+  color: #d9950d; /* ou qualquer cor desejada */
+  font-weight: 500;
+  margin-left: 20px; 
+}
+#cadastrar-usuario-btn {
+  background: linear-gradient(to right, #4a00e0, #8e2de2);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-left: 20px; 
+}
+#cadastrar-usuario-btn:hover {
+  background: linear-gradient(to right, #8e2de2, #4a00e0);}
+
+#cadastrar-usuario1-btn {
+  background: linear-gradient(to right, #4a00e0, #8e2de2);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-left: 20px; 
+}
+#cadastrar-usuario1-btn:hover {
+  background: linear-gradient(to right, #8e2de2, #4a00e0);}
+
+
+
+/* Painel Adicionar Atleta e Categoria */
+/* Painel Adicionar Atleta e Categoria */
+#bloco-atleta {
+  margin-left: 5px;
+  margin-top: 1px;
+  width: 250px;
+  padding: 15px;
+  /*border-radius: 12px;*/
+  border: none;
+  background: transparent;
+ /* box-shadow: 0 0 10px #00000033;*/
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: fit-content;
+}
+
+#bloco-atleta h2:first-of-type {
+  color: #d9950d;
+  font-size: 16px;
+  margin-bottom: 6px;
+  margin-top: 0px; /* Adicionar Atleta */
+  margin-left: 0px;
+}
+
+#bloco-atleta h2:last-of-type {
+  color: #d9950d;
+  font-size: 16px;
+  margin-bottom: 6px;
+  margin-top: -10px; /* Adicionar Categoria (um pouco mais separado) */
+  margin-left: 0px;
+}
+
+#bloco-atleta label {
+  color: #fff;
+  font-size: 13px;
+  margin-bottom: 4px;
+  margin-top: 8px;
+}
+
+#bloco-atleta input[type="text"] {
+  width: 100%;
+  padding: 7px;
+  border-radius: 6px;
+  border: none;
+  background-color: #f2f4f6;
+  color: #181717;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+#bloco-atleta input::placeholder {
+  color: #999;
+}
+
+/* Foto Adicionar foto do Atleta */
+.foto-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 16px;
+  margin: 12px 0 6px;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+/* Imagem */
+.foto-container img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #3f51b5;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  margin-left: 5px;
+  margin-top: 5px;
+  position: relative;
+  top: 0px !important;      /* ajuste vertical */
+  left: 25px !important;       /* ajuste horizontal */
+}
+
+/* Coluna de botões à direita da imagem */
+.foto-container .botoes-coluna {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Texto Adicionar Foto */
+#botaoFoto {
+  position: relative;
+  top: -130px !important;      /* ajuste vertical */
+  left: 180px !important;       /* ajuste horizontal */
+  background: transparent;
+  color: rgb(236, 170, 38);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+#botaoFoto:hover {
+  color: #4d7cf3;
+  background-color: transparent;
+}
+
+#botaoFoto:focus {
+  background-color: transparent;
+  color: #2365ea;
+}
+
+/* Esconde input */
+.foto-container input[type="file"] {
+  display: none;
+}
+
+/* Botão Enviar */
+#add-categoria-btn {
+  background: #9c27b0;
+  background: linear-gradient(to right, #aa7fda, #791ce3, #9c27b0);
+  transition: background 0.3s ease;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  width: 120px;
+  text-align: center;
+  position: relative;   /* permite usar top e left */
+  top: -110px !important;            /* ajuste vertical (negativo = sobe) */
+  left: 140px !important;           /* ajuste horizontal (positivo = vai pra direita) */
+}
+
+#add-categoria-btn:hover {
+  background: linear-gradient(to right, #9c27b0, #791ce3, #b387e6);
+}
+
+
+
+
+
+
+
+/* BLOCO: Enviar para Operador */
+#oper {
+  position: absolute;
+  top: 100px;
+  left: 500px;
+
+  width: 400px;
+  height: auto;
+
+  padding: 20px;
+  background-color: transparent;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Centralizar imagem no painel */
+#foto-atleta-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* Imagem redonda e centralizada */
+#foto-atleta {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  border: 2px solid white;
+  display: inline-block;
+}
+
+#oper h2 {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+#oper label {
+  display: block;
+  color: white;
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+#atleta-operador {
+  width: 100%;
+  padding: 20px 20px;   /* altura reduzida: 8px (vertical), 20px (horizontal) */
+  border-radius: 8px;
+  background: #1c1c3a;
+  color: #ffffff;
+  border: 1px solid #3f51b5;
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0 0 5px rgba(63, 81, 181, 0.5);
+  transition: all 0.3s ease;
+
+  margin-bottom: 30px; /* separação maior do próximo select */
+}
+
+#categoria-operador {
+  width: 100%;
+  padding: 9px 20px;   /* altura reduzida: 8px (vertical), 20px (horizontal) */
+  border-radius: 8px;
+  background: #1c1c3a;
+  color: #ffffff;
+  border: 1px solid #3f51b5;
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0 0 5px rgba(63, 81, 181, 0.5);
+  transition: all 0.3s ease;
+
+  margin-bottom: 10px;
+}
+
+#atleta-operador:focus,
+#categoria-operador:focus {
+  border-color: #00c3ff;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 195, 255, 0.7);
+}
+
+#enviar-operador-btn {
+  background: linear-gradient(to right, #4a00e0, #8e2de2);
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  font-size: 16px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  width: 50%;
+  display: block;
+  margin: 10px auto 0 auto; /* espaçamento de 10px do elemento acima */
+}
+
+#enviar-operador-btn:hover {
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+}
+
+
+
+
+
+/* BLOCO: Excluir Atleta */
+#card-atletas {
+  position: absolute;
+  top: 70px;
+  left: 1165px;
+  max-width: 300px;
+}
+
+#card-atletas h2 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+#card-atletas select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: #2c3e50;
+  color: white;
+  font-size: 14px;
+}
+
+#excluir-atleta-btn {
+  background: linear-gradient(to right, #f1b743, #804b06);
+  color: rgb(250, 248, 250);
+  font: 15px arial ;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#excluir-atleta-btn:hover {
+  background: linear-gradient(to right, #eae32c, #e32e16);
+}
+
+/* BLOCO: Excluir Categoria */
+#cat {
+  position: absolute;
+  top: 410px;
+  left: 1170px;
+  max-width: 300px;
+}
+
+#cat h2 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+#cat select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: #2c3e50;
+  color: white;
+  font-size: 14px;
+}
+
+#excluir-categoria-btn {
+  background: linear-gradient(to right, #f1b743, #804b06);
+  color: rgb(250, 248, 250);
+  font: 15px arial ;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#excluir-categoria-btn:hover {
+   background: linear-gradient(to right, #eae32c, #e32e16);
+}
+
+
+  /* fotos */
+#novoPainelFoto {
+      border: 2px solid #ccc;
+      padding: 20px;
+      width: 250px;
+      border-radius: 10px;
+      background-color: #f8f8f8;
+      margin-top: 20px;
+    }
+    
+    #fotoContainer {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    #fotoAtleta {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      background-color: #d3d3d3;
+    }
+
+    #botaoAdicionarFoto {
+      margin-top: 10px;
+      padding: 5px 15px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    #botaoAdicionarFoto:hover {
+      background-color: #45a049;
+    }
+
+    #inputFoto {
+      display: none;
+    }
+  
+ 

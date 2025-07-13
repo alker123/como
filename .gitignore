@@ -1,0 +1,24 @@
+# Ignorar node_modules (pasta de dependências)
+node_modules/
+
+# Ignorar arquivos de ambiente (variáveis secretas)
+.env
+
+# Ignorar arquivos de credenciais Firebase Admin SDK
+serviceAccountKey-dados.json
+serviceAccountKey-testes.json
+*-firebase-adminsdk-*.json
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos do sistema operacional (Mac/Windows)
+.DS_Store
+Thumbs.db
+*.json
+!firebase-config.json
+credenciais/
+*.json
+

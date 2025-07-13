@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="jurados.css">
+  <title>Jurado B - Avaliação</title> 
+  
+</head>
+<body>
+  <div class="container">
+    <h1>Jurado B - Avaliação</h1>
+
+    <div class="input-container">
+      <label for="categoria">Categoria:</label>
+      <input type="text" id="categoria" class="input-text" placeholder="Categoria" readonly />
+    </div>
+
+    <div class="input-container">
+      <label for="ritmo">Ritmo:</label>
+      <input type="text" id="ritmo" class="input-text" placeholder="Ritmo" readonly />
+    </div>
+
+    <label for="atleta">Selecionar Atleta</label>
+    <select id="atleta">
+      <option value="">Selecione um atleta</option>
+    </select>
+
+    <div class="label-centralizada">
+      <label for="nota">Nota</label>
+    </div>
+    <div class="input-container">
+      <button id="decrementarNota">-</button>
+      <input type="text" id="nota" value="9.0" readonly />
+      <button id="incrementarNota">+</button>
+    </div>
+
+    <div class="label-centralizada">
+      <label for="punicao">Punição</label>
+    </div>
+    <div class="input-container">
+      <button id="decrementarPunicao">-</button>
+      <input type="text" id="punicao" value="0.0" readonly />
+      <button id="incrementarPunicao">+</button>
+    </div>
+
+    <button id="enviar">Enviar Nota</button>
+  </div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getDatabase, ref, onValue, set, get } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
+const appLeitura = initializeApp({ databaseURL: "https://testes2-69ead-default-rtdb.firebaseio.com/" }, "leitura");
+const appEscrita = initializeApp({ databaseURL: "https://dados-teste-8b85d-default-rtdb.firebaseio.com/" }, "escrita");
+
+const dbLeitura = getDatabase(appLeitura);
+const dbEscrita = getDatabase(appEscrita);
+
+const atletaSelect = document.getElementById("atleta");
+const categoriaInput = document.getElementById("categoria");
+const ritmoInput = document.getElementById("ritmo");
+const notaInput = document.getElementById("nota");
+const punicaoInput = document.getElementById("punicao");
+const btnEnviar = document.getElementById("enviar");
+
+let dadosAtletas = {};
+let nota = 9.0;
+let punicao = 0.0;
+const JURADO = 'B';
+
+function carregarAtletas() {
+  onValue(ref(dbLeitura, `avaliacaodejurado${JURADO}`), snapshot => {
+    const data = snapshot.val();
+    atletaSelect.innerHTML = "<option value=''>Selecione um atleta</option>";
+    dadosAtletas = {};
+
+    if (!data) {
+      categoriaInput.value = "";
+      ritmoInput.value = "";
+      return;
+    }
+
+    for (const ritmo in data) {
+      const juradoData = data[ritmo]?.[`jurado${JURADO}`] || {};
+      for (const id in juradoData) {
+        const atleta = juradoData[id];
+        const chave = `${atleta.nome}||${ritmo}`;
+        dadosAtletas[chave] = {
+          nome: atleta.nome,
+          categoria: atleta.categoria,
+          ritmo,
+          id,
+          foto: atleta.foto || ""
+        };
+
+        const option = document.createElement("option");
+        option.value = chave;
+        option.textContent = `${atleta.nome} - ${ritmo}`;
+        atletaSelect.appendChild(option);
+      }
+    }
+
+    if (atletaSelect.options.length > 1) {
+      atletaSelect.selectedIndex = 1;
+      atualizarCamposAtleta();
+    } else {
+      categoriaInput.value = "";
+      ritmoInput.value = "";
+    }
+  }, { onlyOnce: true });
+}
+
+carregarAtletas();
+
+function atualizarCamposAtleta() {
+  const chave = atletaSelect.value;
+  const dados = dadosAtletas[chave];
+  if (dados) {
+    categoriaInput.value = dados.categoria;
+    ritmoInput.value = dados.ritmo;
+  } else {
+    categoriaInput.value = "";
+    ritmoInput.value = "";
+  }
+}
+
+atletaSelect.addEventListener("change", atualizarCamposAtleta);
+
+document.getElementById("incrementarNota").addEventListener("click", () => {
+  if (nota < 10.0) {
+    nota = (parseFloat(nota) + 0.1).toFixed(1);
+    notaInput.value = nota;
+  }
+});
+document.getElementById("decrementarNota").addEventListener("click", () => {
+  if (nota > 9.0) {
+    nota = (parseFloat(nota) - 0.1).toFixed(1);
+    notaInput.value = nota;
+  }
+});
+
+document.getElementById("incrementarPunicao").addEventListener("click", () => {
+  if (punicao < 0.9) {
+    punicao = (parseFloat(punicao) + 0.1).toFixed(1);
+    punicaoInput.value = punicao;
+  }
+});
+document.getElementById("decrementarPunicao").addEventListener("click", () => {
+  if (punicao > 0.0) {
+    punicao = (parseFloat(punicao) - 0.1).toFixed(1);
+    punicaoInput.value = punicao;
+  }
+});
+
+btnEnviar.addEventListener("click", async () => {
+  const chave = atletaSelect.value;
+  const dados = dadosAtletas[chave];
+
+  if (!dados) return alert("❌ Atleta não encontrado.");
+
+  const { nome, categoria, ritmo, id, foto } = dados;
+  nota = parseFloat(notaInput.value);
+  punicao = parseFloat(punicaoInput.value);
+  const notaFinal = (nota - punicao).toFixed(1);
+
+  if (!nome || !categoria || !ritmo || isNaN(nota) || isNaN(punicao)) {
+    return alert("⚠️ Preencha todos os campos corretamente.");
+  }
+
+  const dadosNota = {
+    atleta: nome,
+    categoria,
+    foto,
+    jurado: JURADO,
+    nota,
+    notaFinal,
+    ritmo,
+    punicao,
+  };
+
+  try {
+    const chavePadrao = `${nome}_${categoria}_${ritmo}`.replace(/\s+/g, "_").toLowerCase();
+
+    await set(ref(dbEscrita, `avaliacoes${JURADO}/${ritmo}/${chavePadrao}`), dadosNota);
+    await set(ref(dbEscrita, `avaliado${JURADO}/${ritmo}/${chavePadrao}`), true);
+
+    await set(ref(dbLeitura, `avaliacaodejurado${JURADO}/${ritmo}/jurado${JURADO}/${id}`), null);
+    const snapshot = await get(ref(dbLeitura, `avaliacaodejurado${JURADO}/${ritmo}/jurado${JURADO}`));
+    if (!snapshot.exists()) {
+      await set(ref(dbLeitura, `avaliacaodejurado${JURADO}/${ritmo}`), null);
+    }
+
+    alert("✅ Nota enviada com sucesso!");
+
+    nota = 9.0;
+    punicao = 0.0;
+    notaInput.value = nota.toFixed(1);
+    punicaoInput.value = punicao.toFixed(1);
+
+    carregarAtletas();
+  } catch (error) {
+    console.error("Erro ao enviar a nota:", error);
+    alert("❌ Erro ao enviar a nota.");
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+/* Estilo base para celular (máx. 600px) */
+body {
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+h1, h2 {
+  font-size: 18px;
+  text-align: center;
+  margin: 16px 0 8px;
+}
+
+/* Inputs, selects e botões ocupam toda a largura */
+input,
+select,
+button {
+  width: 100% !important;
+  max-width: 100%;
+  font-size: 16px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+/* Centraliza todos os outros botões e reduz tamanho */
+#enviar-operador-btn,
+#excluir-atleta-btn,
+#excluir-categoria-btn,
+#cadastrar-usuario-btn,
+#cadastrar-usuario1-btn {
+  width: 60% !important;
+  font-size: 14px !important;
+  padding: 8px 12px !important;
+  display: block !important;
+  margin: 12px auto !important;
+  text-align: center;
+  border-radius: 30px;
+}
+
+/* Painéis empilhados verticalmente */
+#bloco-atleta,
+#oper,
+#card-atletas,
+#cat {
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 20px;
+  position: static !important;
+  padding: 10px;
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0.042);
+  border-radius: 10px;
+}
+
+/* Container da imagem e botões lado a lado */
+.foto-container {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  margin: 20px auto 10px;
+  padding-left: 10px;
+}
+
+/* Imagem circular (🔴 alinhada mais abaixo) */
+.foto-container img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #3f51b5;
+  margin-top: 30px !important; /* 🔴 empurra para a marcação vermelha */
+  margin-left: 10px !important;
+}
+
+/* Coluna com os dois botões */
+.foto-acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 110px; /* mesma altura da imagem */
+}
+
+/* Botão "Adicionar Foto" (⚪ mesmo tamanho da imagem) */
+#botaoFoto {
+  width: 110px;
+  height: 45px;
+  font-size: 13px;
+  font-weight: bold;
+  background: transparent;
+  color: #e4b90b;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 45px;
+  padding: 0;
+  margin-left: -262px !important;
+  margin-top: 170px !important;
+
+}
+#add-categoria-btn {
+  width: 90px !important;
+  font-size: 13px !important;
+  padding: 6px 12px !important;
+  border-radius: 30px !important;
+  margin-left: 80px !important;
+  margin-right: 0 !important;
+  display: block !important;
+  text-align: center !important;
+}
+
+
+
+
+/* Ajustes visuais adicionais */
+label {
+  font-size: 14px;
+  text-align: left;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* Remove margens fixas herdadas do desktop */
+input,
+button,
+h2,
+label {
+  margin-left: 0 !important;
+}
